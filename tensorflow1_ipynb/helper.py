@@ -115,11 +115,7 @@ class Cifar10Loader():
             dct[b'data'] -= self.train_mean
 
         if self.zero_center:
-            if self.normalize:
-                dct[b'data'] -= .5
-            else:
-                dct[b'data'] -= 127.5
-
+            dct[b'data'] -= 0.5 if self.normalize else 127.5
         return dct[b'data'], dct[b'labels']
 
     def load_train_epoch(self, batch_size=50, onehot=True,
@@ -147,11 +143,7 @@ class Cifar10Loader():
                 dct[b'data'] -= self.train_mean
 
             if self.zero_center:
-                if self.normalize:
-                    dct[b'data'] -= .5
-                else:
-                    dct[b'data'] -= 127.5
-
+                dct[b'data'] -= 0.5 if self.normalize else 127.5
             arrays = [dct[b'data'], dct[b'labels']]
             del dct
             indices = np.arange(arrays[0].shape[0])
